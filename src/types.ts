@@ -14,6 +14,11 @@ export interface UnknownAction<T extends string> extends BasicAction<T> {
   payload?: any;
 }
 
+/** Function for creating payload in action creators */
+export interface PayloadFunction<R = any> {
+  (...args: any): R;
+}
+
 /**
  * SmartCreator is a main concept.
  * It is extended action creator. that also has type property,
@@ -23,6 +28,15 @@ export interface SmartCreator<T extends string> {
   type: T;
 }
 
+export interface PayloadInjector<P> {
+  (payload: P): P;
+}
+
+export interface InjectPayload<T extends string> {
+  <P>(): SmartCreatorWithPayload<T, PayloadInjector<P>>;
+  <F extends PayloadFunction>(payloadGenerator: F): SmartCreatorWithPayload<T, F>;
+}
+
 /**
  * Basic SmartCreator returns from createReduxer function
  * It returns basic action from itself
@@ -30,4 +44,11 @@ export interface SmartCreator<T extends string> {
  * */
 export interface BasicSmartCreator<T extends string> extends SmartCreator<T> {
   (): BasicAction<T>;
+  load: InjectPayload<T>;
+}
+
+/** Reduxer, that returns action with payload */
+export interface SmartCreatorWithPayload<T extends string, F extends PayloadFunction>
+  extends SmartCreator<T> {
+  (...args: Parameters<F>): PayloadAction<T, ReturnType<F>>;
 }
