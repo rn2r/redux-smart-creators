@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.0.2...v1.1.0) (2021-02-28)
+
+
+### Features
+
+* **basicCreator:** add payload logic to basic creator ([5b5fc78](https://github.com/ostashkin/redux-smart-creators/commit/5b5fc78402859ea502d00f6b28208d5cde2ea301))
+
 ## [1.0.2](https://github.com/ostashkin/redux-smart-creators/compare/v1.0.1...v1.0.2) (2021-02-28)
 
 
