@@ -1,6 +1,6 @@
 {
   "name": "redux-smart-creators",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Smart creators for actions and reducers",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
