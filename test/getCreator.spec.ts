@@ -1,5 +1,5 @@
-import { getCreator } from 'src';
-import { BasicSmartCreator } from 'src/types';
+import { getCreator } from '../src';
+import { BasicSmartCreator } from '../src/types';
 
 describe('getCreator Function', () => {
   let smartCreator: BasicSmartCreator<string>;
