@@ -15,7 +15,7 @@
     "lint": "eslint --fix",
     "semantic-release": "semantic-release"
   },
-  "author": "",
+  "author": "Pavel Ostashkin <ostashpav@gmail.com> (https://github.com/ostashkin)",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
