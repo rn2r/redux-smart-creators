@@ -62,7 +62,14 @@ export type AsyncActionCreatorBasicBag<ActionType extends string, Steps extends 
   [Step in Steps]: AsyncActionCreatorBasicPart<`${ActionType}[${Step}]`>;
 };
 
-export type DefaultAsyncSteps = 'INIT' | 'LOADING' | 'SUCCESS' | 'FAILURE';
+export type DefaultAsyncStep = 'INIT' | 'LOADING' | 'SUCCESS' | 'FAILURE';
 export type DefaultAsyncActionCreatorBasicBag<
   ActionType extends string
-> = AsyncActionCreatorBasicBag<ActionType, DefaultAsyncSteps>;
+> = AsyncActionCreatorBasicBag<ActionType, DefaultAsyncStep>;
+
+export type AsyncBasicActionCreator<
+  ActionType extends string,
+  Steps extends string = DefaultAsyncStep
+> = AsyncActionCreatorBasicBag<ActionType, Steps> & {
+  load: () => any;
+};

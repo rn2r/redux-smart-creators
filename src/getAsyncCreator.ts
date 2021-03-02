@@ -1,26 +1,49 @@
-import { AsyncActionCreatorBasicBag, DefaultAsyncActionCreatorBasicBag } from './types';
+import {
+  AsyncActionCreatorBasicBag,
+  AsyncBasicActionCreator,
+  DefaultAsyncActionCreatorBasicBag,
+  DefaultAsyncStep,
+} from './types';
 import { getCreator } from './getCreator';
 
+export const defaultAsyncSteps: DefaultAsyncStep[] = ['INIT', 'LOADING', 'SUCCESS', 'FAILURE'];
+
 interface GetAsyncCreator {
-  <T extends string>(type: T): DefaultAsyncActionCreatorBasicBag<T>;
-  <T extends string, S extends string>(type: T, ...steps: S[]): AsyncActionCreatorBasicBag<T, S>;
+  <T extends string>(type: T): AsyncBasicActionCreator<T>;
+  <T extends string, S extends string>(type: T, steps: S[]): AsyncBasicActionCreator<T, S>;
 }
 
-const getAsyncCreator: GetAsyncCreator = <T extends string, S extends string>(
+export const getAsyncCreator: GetAsyncCreator = <
+  T extends string,
+  S extends string,
+  C extends AsyncBasicActionCreator<T, S | DefaultAsyncStep>
+>(
   type: T,
-  ...steps: S[]
-): any => {
-  if (steps.length === 0) {
-    return {
-      INIT: getCreator(`${type}[INIT]`),
-      LOADING: getCreator(`${type}[LOADING]`),
-      SUCCESS: getCreator(`${type}[SUCCESS]`),
-      FAILURE: getCreator(`${type}[FAILURE]`),
-    } as DefaultAsyncActionCreatorBasicBag<T>;
+  steps?: S[]
+): C => {
+  const createAsyncBag = <Steps extends string>(
+    acc: AsyncActionCreatorBasicBag<T, Steps>,
+    step: Steps
+  ) => {
+    const stepType = `${type}[${step}]`;
+    return { ...acc, [step]: getCreator(stepType) };
+  };
+
+  if (steps === undefined) {
+    const emptyBag = {} as DefaultAsyncActionCreatorBasicBag<T>;
+    const initialBag = defaultAsyncSteps.reduce(
+      (acc, step) => createAsyncBag<typeof step>(acc, step),
+      emptyBag
+    ) as C;
+    initialBag.load = () => ({});
+    return initialBag;
   }
 
-  return steps.reduce(
-    (acc, step) => ({ ...acc, step: getCreator(`${type}[${step}]`) }),
-    {}
-  ) as AsyncActionCreatorBasicBag<T, S>;
+  const emptyBag = {} as AsyncActionCreatorBasicBag<T, S>;
+  const initialBag = steps.reduce(
+    (acc, step) => createAsyncBag<typeof step>(acc, step),
+    emptyBag
+  ) as C;
+  initialBag.load = () => ({});
+  return initialBag;
 };
