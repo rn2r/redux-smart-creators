@@ -13,9 +13,10 @@
     "build": "rimraf dist && mkdirp dist && rollup -c",
     "test": "jest --coverage",
     "lint": "eslint --fix",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "coverage": "cat ./coverage/lcov.info | coveralls"
   },
-  "author": "",
+  "author": "Pavel Ostashkin <ostashpav@gmail.com> (https://github.com/ostashkin)",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
