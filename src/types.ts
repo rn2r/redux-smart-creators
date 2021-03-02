@@ -53,3 +53,16 @@ export interface SmartCreatorWithPayload<T extends string, F extends PayloadFunc
   extends SmartCreator<T> {
   (...args: Parameters<F>): PayloadAction<T, ReturnType<F>>;
 }
+
+export interface AsyncActionCreatorBasicPart<T extends string> extends SmartCreator<T> {
+  (): BasicAction<T>;
+}
+
+export type AsyncActionCreatorBasicBag<ActionType extends string, Steps extends string> = {
+  [Step in Steps]: AsyncActionCreatorBasicPart<`${ActionType}[${Step}]`>;
+};
+
+export type DefaultAsyncSteps = 'INIT' | 'LOADING' | 'SUCCESS' | 'FAILURE';
+export type DefaultAsyncActionCreatorBasicBag<
+  ActionType extends string
+> = AsyncActionCreatorBasicBag<ActionType, DefaultAsyncSteps>;
