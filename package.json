@@ -4,6 +4,7 @@
   "description": "Smart creators for actions and reducers",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "browser": "dist/index.umd.js",
   "jsnext:main": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -28,7 +29,6 @@
     "@semantic-release/npm": "^7.0.10",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "@types/jest": "^26.0.20",
-    "@types/redux": "^3.6.0",
     "coveralls": "^3.1.0",
     "eslint": "^7.21.0",
     "eslint-config-airbnb-base": "^14.2.1",

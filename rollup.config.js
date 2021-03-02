@@ -6,6 +6,11 @@ export default {
   input: './src/index.ts',
   output: [
     {
+      name: 'redux-smart-creators',
+      file: pkg.browser,
+      format: 'umd',
+    },
+    {
       file: pkg.main,
       format: 'cjs',
     },

@@ -1,8 +1,9 @@
-import { Action } from 'redux';
-
 /** ACTIONS */
+
 /** Basic Action without payload, analog of action from redux */
-export interface BasicAction<T extends string> extends Action<T> {}
+export interface BasicAction<T extends string> {
+  type: T;
+}
 
 /** Action with guaranteed payload  */
 export interface PayloadAction<T extends string, P extends any> extends BasicAction<T> {
