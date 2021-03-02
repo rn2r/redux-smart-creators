@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/ostashkin/redux-smart-creators/compare/v1.1.0...v1.1.1) (2021-03-02)
+
+
+### Bug Fixes
+
+* **docs:** add licence information ([b6b519c](https://github.com/ostashkin/redux-smart-creators/commit/b6b519cc01dec0b35a4e2390e0f46b2402a17f20))
+
 # [1.1.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.0.2...v1.1.0) (2021-02-28)
 
 
