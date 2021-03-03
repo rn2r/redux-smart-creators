@@ -73,3 +73,7 @@ export type AsyncBasicActionCreator<
 > = AsyncActionCreatorBasicBag<ActionType, Steps> & {
   load: () => any;
 };
+
+export interface AsyncPayloadInjector<R> {
+  (injector: <P>() => PayloadInjector<P>): R;
+}
