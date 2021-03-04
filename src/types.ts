@@ -67,11 +67,19 @@ export type DefaultAsyncActionCreatorBasicBag<
   ActionType extends string
 > = AsyncActionCreatorBasicBag<ActionType, DefaultAsyncStep>;
 
+export interface Load<Type extends string, Steps extends string> {
+  <F extends Partial<Record<Steps, PayloadFunction>>>(payloadInjector: AsyncPayloadInjector<F>): {
+    [Step in Steps]: F[Step] extends PayloadFunction
+      ? SmartCreatorWithPayload<`${Type}[${Step}]`, F[Step]>
+      : BasicSmartCreator<`${Type}[${Step}]`>;
+  };
+}
+
 export type AsyncBasicActionCreator<
   ActionType extends string,
   Steps extends string = DefaultAsyncStep
 > = AsyncActionCreatorBasicBag<ActionType, Steps> & {
-  load: () => any;
+  load: Load<ActionType, Steps>;
 };
 
 export interface AsyncPayloadInjector<R> {
