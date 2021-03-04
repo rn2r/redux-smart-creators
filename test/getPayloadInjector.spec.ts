@@ -1,6 +1,6 @@
 import { InjectPayload } from '../src/types';
 import { MOCKED_TYPE } from './mocks';
-import { getPayloadInjector } from '../src/getCreator';
+import { getPayloadInjector } from '../src/actionCreator/getPayloadInjector';
 
 describe('wrong called getPayloadInjector', () => {
   it('should throw error without type', () => {

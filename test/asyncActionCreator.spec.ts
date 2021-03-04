@@ -1,6 +1,7 @@
 import { AsyncBasicActionCreator } from '../src/types';
 import { MOCKED_TYPE } from './mocks';
-import { defaultAsyncSteps, getAsyncCreator } from '../src/getAsyncCreator';
+import { getAsyncCreator } from '../src';
+import { defaultAsyncSteps } from '../src/asyncActionCreator/defaultSteps';
 
 describe('getAsyncCreator Function with default steps', () => {
   let asyncCreator: AsyncBasicActionCreator<string>;
@@ -53,7 +54,7 @@ describe('getAsyncCreator Function with default steps', () => {
   });
 
   it('returned async creator with payload should not have "type" and "load" properties', () => {
-    const asyncCreatorWithPayload = asyncCreator.load();
+    const asyncCreatorWithPayload = asyncCreator.load({});
     expect(typeof asyncCreatorWithPayload).toEqual('object');
     expect(asyncCreatorWithPayload).not.toHaveProperty('type');
     expect(asyncCreatorWithPayload).not.toHaveProperty('load');
@@ -113,7 +114,7 @@ describe('getAsyncCreator Function with user steps', () => {
   });
 
   it('returned async creator with payload should not have "type" and "load" properties', () => {
-    const asyncCreatorWithPayload = asyncCreator.load();
+    const asyncCreatorWithPayload = asyncCreator.load({});
     expect(typeof asyncCreatorWithPayload).toEqual('object');
     expect(asyncCreatorWithPayload).not.toHaveProperty('type');
     expect(asyncCreatorWithPayload).not.toHaveProperty('load');

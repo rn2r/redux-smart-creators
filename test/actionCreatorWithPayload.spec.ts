@@ -1,9 +1,9 @@
-import { PayloadFunction, SmartCreatorWithPayload } from '../src/types';
+import { PayloadFunction, ActionCreatorWithPayload } from '../src/types';
 import { MOCKED_TYPE } from './mocks';
-import { getPayloadInjector } from '../src/getCreator';
+import { getPayloadInjector } from '../src/actionCreator/getPayloadInjector';
 
 describe('Creator with auto payload', () => {
-  let creatorWithPayload: SmartCreatorWithPayload<typeof MOCKED_TYPE, PayloadFunction>;
+  let creatorWithPayload: ActionCreatorWithPayload<typeof MOCKED_TYPE, PayloadFunction>;
   beforeAll(() => {
     const payloadInjector = getPayloadInjector(MOCKED_TYPE);
     creatorWithPayload = payloadInjector();
@@ -34,7 +34,7 @@ describe('Creator with auto payload', () => {
 
 describe('Creator with functional payload', () => {
   const payloadFunction = jest.fn((arg1: string, arg2: number) => ({ arg1, arg2 }));
-  let creatorWithPayload: SmartCreatorWithPayload<typeof MOCKED_TYPE, typeof payloadFunction>;
+  let creatorWithPayload: ActionCreatorWithPayload<typeof MOCKED_TYPE, typeof payloadFunction>;
 
   beforeAll(() => {
     const payloadInjector = getPayloadInjector(MOCKED_TYPE);

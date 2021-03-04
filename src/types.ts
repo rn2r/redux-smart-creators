@@ -6,7 +6,7 @@ export interface BasicAction<T extends string> {
 }
 
 /** Action with guaranteed payload  */
-export interface PayloadAction<T extends string, P extends any> extends BasicAction<T> {
+export interface ActionWithPayload<T extends string, P extends any> extends BasicAction<T> {
   payload: P;
 }
 
@@ -16,8 +16,8 @@ export interface UnknownAction<T extends string> extends BasicAction<T> {
 }
 
 /** Function for creating payload in action creators */
-export interface PayloadFunction<R = any> {
-  (...args: any): R;
+export interface PayloadFunction<ActionPayload = any> {
+  (...args: any): ActionPayload;
 }
 
 /**
@@ -25,17 +25,21 @@ export interface PayloadFunction<R = any> {
  * It is extended action creator. that also has type property,
  * Type is just a string, it equivalents type of returned action from reduxer
  * */
-export interface SmartCreator<T extends string> {
-  type: T;
+export interface ActionCreator<ActionType extends string> {
+  type: ActionType;
 }
 
-export interface PayloadInjector<P> {
-  (payload: P): P;
+export interface BasicPayloadInjector<ActionPayload> {
+  (payload: ActionPayload): ActionPayload;
 }
 
-export interface InjectPayload<T extends string> {
-  <P>(): SmartCreatorWithPayload<T, PayloadInjector<P>>;
-  <F extends PayloadFunction>(payloadGenerator: F): SmartCreatorWithPayload<T, F>;
+export interface InjectPayload<ActionType extends string> {
+  <ActionPayload>(): ActionCreatorWithPayload<ActionType, BasicPayloadInjector<ActionPayload>>;
+  <F extends PayloadFunction>(payloadGenerator: F): ActionCreatorWithPayload<ActionType, F>;
+}
+
+export interface BasicActionCreator<ActionType extends string> extends ActionCreator<ActionType> {
+  (): BasicAction<ActionType>;
 }
 
 /**
@@ -43,45 +47,48 @@ export interface InjectPayload<T extends string> {
  * It returns basic action from itself
  * Also has load() method, where possible to describe payload of action
  * */
-export interface BasicSmartCreator<T extends string> extends SmartCreator<T> {
-  (): BasicAction<T>;
-  load: InjectPayload<T>;
+export interface ActionCreatorWithLoad<ActionType extends string>
+  extends BasicActionCreator<ActionType> {
+  load: InjectPayload<ActionType>;
 }
 
 /** Reduxer, that returns action with payload */
-export interface SmartCreatorWithPayload<T extends string, F extends PayloadFunction>
-  extends SmartCreator<T> {
-  (...args: Parameters<F>): PayloadAction<T, ReturnType<F>>;
-}
-
-export interface AsyncActionCreatorBasicPart<T extends string> extends SmartCreator<T> {
-  (): BasicAction<T>;
+export interface ActionCreatorWithPayload<ActionType extends string, F extends PayloadFunction>
+  extends ActionCreator<ActionType> {
+  (...args: Parameters<F>): ActionWithPayload<ActionType, ReturnType<F>>;
 }
 
 export type AsyncActionCreatorBasicBag<ActionType extends string, Steps extends string> = {
-  [Step in Steps]: AsyncActionCreatorBasicPart<`${ActionType}[${Step}]`>;
+  [Step in Steps]: BasicActionCreator<`${ActionType}[${Step}]`>;
 };
 
 export type DefaultAsyncStep = 'INIT' | 'LOADING' | 'SUCCESS' | 'FAILURE';
-export type DefaultAsyncActionCreatorBasicBag<
-  ActionType extends string
-> = AsyncActionCreatorBasicBag<ActionType, DefaultAsyncStep>;
 
-export interface Load<Type extends string, Steps extends string> {
-  <F extends Partial<Record<Steps, PayloadFunction>>>(payloadInjector: AsyncPayloadInjector<F>): {
-    [Step in Steps]: F[Step] extends PayloadFunction
-      ? SmartCreatorWithPayload<`${Type}[${Step}]`, F[Step]>
-      : BasicSmartCreator<`${Type}[${Step}]`>;
-  };
+export type StepsPayloadFunctions<Steps extends string> = Partial<Record<Steps, PayloadFunction>>;
+
+export interface InjectAsyncPayload<ActionType extends string, Steps extends string> {
+  <Payloads extends StepsPayloadFunctions<Steps>>(
+    payloads: Payloads
+  ): AsyncActionCreatorWithPayload<ActionType, Steps, Payloads>;
 }
 
 export type AsyncBasicActionCreator<
   ActionType extends string,
   Steps extends string = DefaultAsyncStep
 > = AsyncActionCreatorBasicBag<ActionType, Steps> & {
-  load: Load<ActionType, Steps>;
+  load: InjectAsyncPayload<ActionType, Steps>;
+};
+
+export type AsyncActionCreatorWithPayload<
+  ActionType extends string,
+  Steps extends string,
+  Payloads extends StepsPayloadFunctions<Steps>
+> = {
+  [Step in Steps]: Payloads[Step] extends PayloadFunction
+    ? ActionCreatorWithPayload<`${ActionType}[${Step}]`, Payloads[Step]>
+    : ActionCreatorWithLoad<`${ActionType}[${Step}]`>;
 };
 
 export interface AsyncPayloadInjector<R> {
-  (injector: <P>() => PayloadInjector<P>): R;
+  (injector: <P>() => BasicPayloadInjector<P>): R;
 }

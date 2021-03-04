@@ -1,12 +1,12 @@
-import { getCreator } from '../src';
-import { BasicSmartCreator } from '../src/types';
+import { getActionCreator } from '../src';
+import { ActionCreatorWithLoad } from '../src/types';
 import { MOCKED_TYPE } from './mocks';
 
 describe('getCreator Function', () => {
-  let smartCreator: BasicSmartCreator<string>;
+  let smartCreator: ActionCreatorWithLoad<string>;
 
   beforeAll(() => {
-    smartCreator = getCreator(MOCKED_TYPE);
+    smartCreator = getActionCreator(MOCKED_TYPE);
   });
 
   it('should return function', () => {
