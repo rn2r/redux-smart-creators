@@ -1,7 +1,7 @@
 import { ActionCreatorWithLoad, InjectPayload } from '../types';
 import { getPayloadInjector } from './getPayloadInjector';
 
-interface CreateLoadMethod {
+interface WithLoad {
   <ActionType extends string>(
     basicCreator: Omit<ActionCreatorWithLoad<ActionType>, 'load'> & {
       load?: InjectPayload<ActionType>;
@@ -9,7 +9,7 @@ interface CreateLoadMethod {
   ): ActionCreatorWithLoad<ActionType>;
 }
 
-export const createLoadMethod: CreateLoadMethod = (basicCreator) => {
+export const withLoad: WithLoad = (basicCreator) => {
   basicCreator.load = getPayloadInjector(basicCreator.type);
   return basicCreator as ActionCreatorWithLoad<typeof basicCreator.type>;
 };

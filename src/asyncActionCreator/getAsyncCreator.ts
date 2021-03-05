@@ -1,7 +1,7 @@
 import { AsyncActionCreatorBasicBag, AsyncBasicActionCreator, DefaultAsyncStep } from '../types';
-import { getBasicActionCreator } from '../actionCreator/getActionCreator';
 import { getAsyncPayloadInjector } from './getAsyncPayloadInjector';
 import { defaultAsyncSteps } from './defaultSteps';
+import { getBasicActionCreator } from '../actionCreator/getBasicActionCreator';
 
 interface GetAsyncCreator {
   <T extends string>(type: T): AsyncBasicActionCreator<T>;
