@@ -1,3 +1,16 @@
+# [1.2.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.1.1...v1.2.0) (2021-03-06)
+
+
+### Bug Fixes
+
+* eslint fixes ([fcd81ea](https://github.com/ostashkin/redux-smart-creators/commit/fcd81ea998b7713486c324798d0cf063bcf981bd))
+* getAsyncPayloadInjector scratch ([04bf6fd](https://github.com/ostashkin/redux-smart-creators/commit/04bf6fdb8a8c35285201d251e197a179c46405a0))
+
+
+### Features
+
+* asyncActionCreator without payloads ([1f1c4e8](https://github.com/ostashkin/redux-smart-creators/commit/1f1c4e8e0a5918d2a2307141f7784bae179eb00f))
+
 ## [1.1.1](https://github.com/ostashkin/redux-smart-creators/compare/v1.1.0...v1.1.1) (2021-03-02)
 
 
