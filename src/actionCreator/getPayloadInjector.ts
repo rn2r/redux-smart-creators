@@ -1,10 +1,6 @@
-import {
-  BasicPayloadInjector,
-  InjectPayload,
-  PayloadFunction,
-  ActionCreatorWithPayload,
-} from '../types';
 import { requirePayloadFunction } from '../utils/require';
+import { BasicPayloadFunction, PayloadFunction } from '../types/common';
+import { ActionCreatorWithPayload, InjectPayload } from '../types/creator';
 
 interface GetPayloadInjector {
   <ActionType extends string>(actionType: ActionType): InjectPayload<ActionType>;
@@ -19,7 +15,7 @@ export const getPayloadInjector: GetPayloadInjector = <ActionType extends string
     if (payloadInjector === undefined) {
       const creatorWithPayload: ActionCreatorWithPayload<
         ActionType,
-        BasicPayloadInjector<ActionPayload>
+        BasicPayloadFunction<ActionPayload>
       > = (payload) => ({ type: actionType, payload });
       creatorWithPayload.type = actionType;
       return creatorWithPayload;

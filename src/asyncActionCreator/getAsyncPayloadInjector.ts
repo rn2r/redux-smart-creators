@@ -1,9 +1,10 @@
-import { AsyncActionCreatorBag, InjectAsyncPayload, PayloadFunction } from '../types';
 import { withLoad } from '../actionCreator/withLoad';
+import { PayloadFunction } from '../types/common';
+import { ActionCreatorsBag, InjectAsyncPayload } from '../types/asyncCreator';
 
 export const getAsyncPayloadInjector = <T extends string, S extends string>(
   type: T,
-  baseCreators: AsyncActionCreatorBag<T, S>
+  baseCreators: ActionCreatorsBag<T, S>
 ) => {
   const injectAsyncPayload: InjectAsyncPayload<T, S> = (payloads) => {
     const stepsWithPayload = Object.keys(payloads);
@@ -16,7 +17,7 @@ export const getAsyncPayloadInjector = <T extends string, S extends string>(
         throw new Error('Payload creator must be a function');
       }
       const stepPayload = payloads[step as keyof typeof payloads] as PayloadFunction;
-      const creator = creators[step as keyof AsyncActionCreatorBag<T, S>];
+      const creator = creators[step as keyof ActionCreatorsBag<T, S>];
       const creatorWithLoad = withLoad(creator);
       return { ...creators, [step]: creatorWithLoad.load(stepPayload) };
     }, baseCreators) as ReturnType<InjectAsyncPayload<T, S>>;

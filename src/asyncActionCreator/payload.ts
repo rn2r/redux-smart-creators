@@ -1,7 +1,7 @@
-import { BasicPayloadInjector } from '../types';
+import { BasicPayloadFunction } from '../types/common';
 
 interface Payload {
-  <ActionPayload>(): BasicPayloadInjector<ActionPayload>;
+  <ActionPayload>(): BasicPayloadFunction<ActionPayload>;
 }
 
 export const payload: Payload = () => {

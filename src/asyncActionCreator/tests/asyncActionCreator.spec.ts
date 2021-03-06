@@ -1,8 +1,8 @@
-import { DefaultAsyncStep } from '../../types';
 import { MOCKED_TYPE } from '../../../test/mocks';
 import { getAsyncCreator } from '../../index';
 import { defaultAsyncSteps } from '../defaultSteps';
 import { wrongUsageTests } from './utils';
+import { DefaultAsyncStep } from '../../types/common';
 
 describe('wrong usage', () => {
   wrongUsageTests(getAsyncCreator);

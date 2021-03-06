@@ -1,14 +1,14 @@
-import { AsyncBasicActionCreator } from '../../types';
 import { MOCKED_TYPE } from '../../../test/mocks';
+import { ExtendableAsyncActionCreator } from '../../types/asyncCreator';
 
 interface AsyncActionCreatorWrongUsageTests {
-  <ActionType extends string, ActionCreator extends AsyncBasicActionCreator<ActionType>>(
+  <ActionType extends string, ActionCreator extends ExtendableAsyncActionCreator<ActionType>>(
     getCreator: (actionType: ActionType) => ActionCreator
   ): void;
   <
     ActionType extends string,
     Steps extends string,
-    ActionCreator extends AsyncBasicActionCreator<ActionType, Steps>
+    ActionCreator extends ExtendableAsyncActionCreator<ActionType, Steps>
   >(
     getCreator: (actionType: ActionType, steps?: Steps[]) => ActionCreator
   ): void;
@@ -18,8 +18,8 @@ interface AsyncActionCreatorWrongUsageTests {
 export const wrongUsageTests: AsyncActionCreatorWrongUsageTests = <
   ActionType extends string,
   Steps extends string,
-  DefaultActionCreator extends AsyncBasicActionCreator<ActionType>,
-  ActionCreator extends AsyncBasicActionCreator<ActionType, Steps>
+  DefaultActionCreator extends ExtendableAsyncActionCreator<ActionType>,
+  ActionCreator extends ExtendableAsyncActionCreator<ActionType, Steps>
 >(
   getCreator: (actionType: ActionType, steps?: Steps[]) => ActionCreator | DefaultActionCreator
 ): void => {
