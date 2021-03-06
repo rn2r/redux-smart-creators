@@ -58,7 +58,7 @@ export interface ActionCreatorWithPayload<ActionType extends string, F extends P
   (...args: Parameters<F>): ActionWithPayload<ActionType, ReturnType<F>>;
 }
 
-export type AsyncActionCreatorBasicBag<ActionType extends string, Steps extends string> = {
+export type AsyncActionCreatorBag<ActionType extends string, Steps extends string> = {
   [Step in Steps]: BasicActionCreator<`${ActionType}[${Step}]`>;
 };
 
@@ -75,7 +75,7 @@ export interface InjectAsyncPayload<ActionType extends string, Steps extends str
 export type AsyncBasicActionCreator<
   ActionType extends string,
   Steps extends string = DefaultAsyncStep
-> = AsyncActionCreatorBasicBag<ActionType, Steps> & {
+> = AsyncActionCreatorBag<ActionType, Steps> & {
   load: InjectAsyncPayload<ActionType, Steps>;
 };
 
@@ -88,7 +88,3 @@ export type AsyncActionCreatorWithPayload<
     ? ActionCreatorWithPayload<`${ActionType}[${Step}]`, Payloads[Step]>
     : ActionCreatorWithLoad<`${ActionType}[${Step}]`>;
 };
-
-export interface AsyncPayloadInjector<R> {
-  (injector: <P>() => BasicPayloadInjector<P>): R;
-}
