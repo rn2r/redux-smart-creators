@@ -1,13 +1,13 @@
-import { getActionCreator } from '../../index';
+import { getCreator } from '../getCreator';
 import { MOCKED_TYPE } from '../../../test/mocks';
 import { actionCreatorBasicTests, wrongUsageTest } from './utils';
 
 describe('wrong usage of getActionCreator', () => {
-  wrongUsageTest(getActionCreator);
+  wrongUsageTest(getCreator);
 });
 
 describe('getActionCreator', () => {
-  const actionCreator = getActionCreator(MOCKED_TYPE);
+  const actionCreator = getCreator(MOCKED_TYPE);
 
   actionCreatorBasicTests(actionCreator);
 
@@ -24,7 +24,7 @@ describe('getActionCreator', () => {
 });
 
 describe("actionCreator's 'load' method", () => {
-  const actionCreator = getActionCreator(MOCKED_TYPE);
+  const actionCreator = getCreator(MOCKED_TYPE);
 
   describe('wrong usage', () => {
     it('should throw an error it passed not a function as parameter', () => {

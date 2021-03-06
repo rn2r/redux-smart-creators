@@ -1,4 +1,4 @@
-import { getAsyncPayloadInjector } from './getAsyncPayloadInjector';
+import { getAsyncPayloadInjector } from './getPayloadInjector';
 import { ActionCreatorsBag, ExtendableAsyncActionCreator } from '../types/asyncCreator';
 
 interface WithAsyncLoad {
@@ -8,7 +8,7 @@ interface WithAsyncLoad {
   ): ExtendableAsyncActionCreator<ActionType, Steps>;
 }
 
-export const withAsyncLoad: WithAsyncLoad = (actionType, actionCreatorsBag) => {
+export const withLoad: WithAsyncLoad = (actionType, actionCreatorsBag) => {
   const load = getAsyncPayloadInjector(actionType, actionCreatorsBag);
   return { ...actionCreatorsBag, load };
 };

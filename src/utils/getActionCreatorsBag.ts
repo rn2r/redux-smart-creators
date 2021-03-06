@@ -1,5 +1,5 @@
-import { getBasicActionCreator } from '../actionCreator/getBasicActionCreator';
-import { requireActionType, requireSteps } from '../utils/require';
+import { getBasicActionCreator } from './getBasicActionCreator';
+import { requireActionType, requireSteps } from './require';
 import { ActionCreatorsBag } from '../types/asyncCreator';
 
 interface GetActionCreatorsBag {

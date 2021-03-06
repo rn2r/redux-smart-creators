@@ -1,4 +1,4 @@
-import { getBasicActionCreator } from '../getBasicActionCreator';
+import { getBasicActionCreator } from '../../utils/getBasicActionCreator';
 import { MOCKED_TYPE } from '../../../test/mocks';
 import { actionCreatorBasicTests, wrongUsageTest } from './utils';
 

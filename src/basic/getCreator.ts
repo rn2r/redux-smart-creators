@@ -1,12 +1,12 @@
 import { withLoad } from './withLoad';
-import { getBasicActionCreator } from './getBasicActionCreator';
+import { getBasicActionCreator } from '../utils/getBasicActionCreator';
 import { ExtendableBasicActionCreator } from '../types/creator';
 
 interface GetActionCreator {
   <ActionType extends string>(actionType: ActionType): ExtendableBasicActionCreator<ActionType>;
 }
 
-export const getActionCreator: GetActionCreator = (actionType) => {
+export const getCreator: GetActionCreator = (actionType) => {
   const basicSmartCreator = getBasicActionCreator(actionType);
   return withLoad(basicSmartCreator);
 };

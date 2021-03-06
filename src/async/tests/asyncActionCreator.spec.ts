@@ -1,6 +1,6 @@
 import { MOCKED_TYPE } from '../../../test/mocks';
 import { getAsyncCreator } from '../../index';
-import { defaultAsyncSteps } from '../defaultSteps';
+import { defaultAsyncSteps } from '../../utils/defaultSteps';
 import { wrongUsageTests } from './utils';
 import { DefaultAsyncStep } from '../../types/common';
 

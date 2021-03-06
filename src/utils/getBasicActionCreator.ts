@@ -1,4 +1,4 @@
-import { requireActionType } from '../utils/require';
+import { requireActionType } from './require';
 import { BasicActionCreator } from '../types/creator';
 
 interface GetBasicActionCreator {

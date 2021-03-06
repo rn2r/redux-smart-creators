@@ -1,4 +1,2 @@
-import { getActionCreator } from './actionCreator/getActionCreator';
-import { getAsyncCreator } from './asyncActionCreator/getAsyncActionCreator';
-
-export { getActionCreator, getAsyncCreator };
+export { getCreator } from './basic';
+export { getAsyncCreator } from './async';
