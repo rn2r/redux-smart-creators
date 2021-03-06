@@ -1,8 +1,8 @@
-import { MOCKED_TYPE } from '../../../test/mocks';
-import { getAsyncCreator } from '../../index';
-import { defaultAsyncSteps } from '../../utils/defaultSteps';
+import { MOCKED_TYPE } from '../mocks';
+import { getAsyncCreator } from '../../src';
+import { defaultAsyncSteps } from '../../src/utils/defaultSteps';
 import { wrongUsageTests } from './utils';
-import { DefaultAsyncStep } from '../../types/common';
+import { DefaultAsyncStep } from '../../src/types/common';
 
 describe('wrong usage', () => {
   wrongUsageTests(getAsyncCreator);
@@ -68,6 +68,26 @@ describe('getAsyncCreator Function with default steps', () => {
   });
 });
 
+describe('wrong usage of async action creator with payload', () => {
+  const asyncCreator = getAsyncCreator(MOCKED_TYPE, defaultAsyncSteps);
+
+  it('should throw an error if original steps do not include steps with a payload', () => {
+    const payloadFunctions = { WRONG_STEP_NAME: () => {} };
+    expect(() => {
+      // @ts-ignore
+      asyncCreator.load(payloadFunctions);
+    }).toThrowError();
+  });
+
+  it('should throw an error if the type of payload function is not a "function"', () => {
+    const payloadFunctions = { INIT: 'WRONG_TYPE_OF_PAYLOAD_FUNCTION' };
+    expect(() => {
+      // @ts-ignore
+      asyncCreator.load(payloadFunctions);
+    }).toThrowError();
+  });
+});
+
 describe('async actionCreator with payload', () => {
   const asyncCreator = getAsyncCreator(MOCKED_TYPE, defaultAsyncSteps);
 
@@ -99,7 +119,7 @@ describe('async actionCreator with payload', () => {
     const stepsWithPayload: DefaultAsyncStep[] = ['INIT', 'LOADING'];
     const payloads = stepsWithPayload.reduce(
       (acc, step) => ({ ...acc, [step]: (payload: any) => payload }),
-      {},
+      {}
     );
 
     const asyncCreatorWithPayload = asyncCreator.load(payloads);
@@ -119,7 +139,7 @@ describe('async actionCreator with payload', () => {
     const stepsWithPayload: DefaultAsyncStep[] = ['INIT', 'LOADING'];
     const payloads = stepsWithPayload.reduce(
       (acc, step) => ({ ...acc, [step]: (payload: any) => payload }),
-      {},
+      {}
     );
 
     const asyncCreatorWithPayload = asyncCreator.load(payloads);

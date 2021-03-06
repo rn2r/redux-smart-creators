@@ -1,5 +1,5 @@
-import { getCreator } from '../getCreator';
-import { MOCKED_TYPE } from '../../../test/mocks';
+import { getCreator } from '../../src';
+import { MOCKED_TYPE } from '../mocks';
 import { actionCreatorBasicTests, wrongUsageTest } from './utils';
 
 describe('wrong usage of getActionCreator', () => {
@@ -8,7 +8,6 @@ describe('wrong usage of getActionCreator', () => {
 
 describe('getActionCreator', () => {
   const actionCreator = getCreator(MOCKED_TYPE);
-
   actionCreatorBasicTests(actionCreator);
 
   it("should have correct 'load' property", () => {

@@ -1,5 +1,5 @@
-import { MOCKED_TYPE } from '../../../test/mocks';
-import { BasicActionCreator } from '../../types/creator';
+import { MOCKED_TYPE } from '../mocks';
+import { BasicActionCreator } from '../../src/types/creator';
 
 interface ActionCreatorBasicTests {
   <ActionType extends string, ActionCreator extends BasicActionCreator<ActionType>>(

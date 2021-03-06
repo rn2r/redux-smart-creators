@@ -1,5 +1,5 @@
-import { MOCKED_TYPE } from '../../../test/mocks';
-import { ExtendableAsyncActionCreator } from '../../types/asyncCreator';
+import { MOCKED_TYPE } from '../mocks';
+import { ExtendableAsyncActionCreator } from '../../src/types/asyncCreator';
 
 interface AsyncActionCreatorWrongUsageTests {
   <ActionType extends string, ActionCreator extends ExtendableAsyncActionCreator<ActionType>>(
@@ -21,8 +21,8 @@ export const wrongUsageTests: AsyncActionCreatorWrongUsageTests = <
   DefaultActionCreator extends ExtendableAsyncActionCreator<ActionType>,
   ActionCreator extends ExtendableAsyncActionCreator<ActionType, Steps>
 >(
-    getCreator: (actionType: ActionType, steps?: Steps[]) => ActionCreator | DefaultActionCreator,
-  ): void => {
+  getCreator: (actionType: ActionType, steps?: Steps[]) => ActionCreator | DefaultActionCreator
+): void => {
   it('should throw an Error if called without argument', () => {
     expect(() => {
       // @ts-ignore

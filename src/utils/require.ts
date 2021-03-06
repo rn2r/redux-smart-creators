@@ -18,7 +18,7 @@ export const requireSteps: RequireSomething = (candidate) => {
       if (typeof step !== 'string') throw new Error('All of steps must be a string');
       if (step.trim().length === 0) throw new Error('Steps cannot be an empty string');
     });
-  } else if (typeof candidate !== 'undefined') {
+  } else if (candidate !== undefined) {
     throw new Error('You must provide list of steps or keep steps default');
   }
 };

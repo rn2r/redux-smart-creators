@@ -10,6 +10,7 @@ interface WithLoad {
 }
 
 export const withLoad: WithLoad = (basicCreator) => {
-  const load = getPayloadInjector(basicCreator.type);
-  return { ...basicCreator, load } as ExtendableBasicActionCreator<typeof basicCreator.type>;
+  // eslint-disable-next-line no-param-reassign
+  basicCreator.load = getPayloadInjector(basicCreator.type);
+  return basicCreator as ExtendableBasicActionCreator<typeof basicCreator.type>;
 };

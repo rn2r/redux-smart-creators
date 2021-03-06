@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb-base"],
+  "extends": ["airbnb-base", "prettier"],
   "plugins": ["@typescript-eslint", "prettier"],
   "parser": "@typescript-eslint/parser",
   "ignorePatterns": ["**/*.d.ts", "dist"],

@@ -1,4 +1,4 @@
-import { payload } from '../../utils/payload';
+import { payload } from '../../src/utils/payload';
 
 describe('payload', () => {
   const payloadInjector = payload();

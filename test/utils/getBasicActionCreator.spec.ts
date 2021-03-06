@@ -1,6 +1,6 @@
-import { getBasicActionCreator } from '../../utils/getBasicActionCreator';
-import { MOCKED_TYPE } from '../../../test/mocks';
-import { actionCreatorBasicTests, wrongUsageTest } from './utils';
+import { getBasicActionCreator } from '../../src/utils/getBasicActionCreator';
+import { MOCKED_TYPE } from '../mocks';
+import { actionCreatorBasicTests, wrongUsageTest } from '../basic/utils';
 
 describe('wrong usage of getBasicActionCreator', () => {
   wrongUsageTest(getBasicActionCreator);
