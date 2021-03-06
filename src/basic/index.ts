@@ -1,0 +1,1 @@
+export { getCreator } from './getCreator';

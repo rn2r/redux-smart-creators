@@ -45,31 +45,23 @@ yarn add redux-smart-creators
 ```
 
 ### Creating actions
+```typescript
+import { getCreator } from 'redux-smart-creators'
+```
 #### Actions without Payload
-Just use `getCreator` function with provided action type as single argument:
+Use `getCreator` function with provided action type as single argument:
 ```typescript
 /** actions.ts */
-import { getCreator } from 'redux-smart-creators'
-
 const sing = getCreator('sing');
-// () => ({
-//    type: 'sing'
-// })
 
 /** somewhere else */
-store.dispatch(sing('la-la-la'))
+store.dispatch(sing())
 ```
 #### Actions with Payload
 After getting basic creator you can inject a payload into it using `load` method:
 ```typescript
 /** actions.ts */
-import { getCreator } from 'redux-smart-creators'
-
 const singSomething = getCreator('singSomething').load()
-// (payload: any) => ({
-//    type: 'singSomething',
-//    payload
-// })
 
 /** somewhere else */
 store.dispatch(sing('random song'))
@@ -78,21 +70,11 @@ store.dispatch(sing('random song'))
 You can provide generic payload type for `load` method or inject your own logic for action creator
 ```typescript
 /** actions.ts */
-import { getCreator } from 'redux-smart-creators'
-
 const rateSong = getCreator('singFavoriteSong').load<number>()
-// (payload: number) => ({
-//    type: 'singFavoriteSong',
-//    payload
-// })
 
 const singManyTimes = getCreator('singManyTimes').load((song: string, repeats: number): string => {
-  song.repeat(repeats)
+  return song.repeat(repeats)
 })
-// (song: string, repeats: number) => ({
-//    type: 'singManyTimes',
-//    payload: song.repeat(repeats)
-// })
 
 /** somewhere else */
 store.dispatch(rateSong('10')) // Type error!
@@ -101,6 +83,27 @@ store.dispatch(rateSong(10)) // Correct type
 store.dispatch(singManyTimes('favoriteSong', 10))
 ```
 ### Creating asynchronous actions
-`WIP`
+```typescript
+/** actions.ts */
+import { getAsyncCreator } from 'redux-smart-creators'
+```
+#### Actions without Payload
+Use `getAsyncCreator` function with provided action type as single argument.
+By default, it returns an object with four **steps** (`INIT`, `LOADING`, `SUCCESS`, `FAILURE`), represented as action creators. 
+All of them will have computed action type, consisting of the type specified in the `getAsyncCreator` and the **step** name
+```typescript
+/** actions.ts */
+const singAsync = getAsyncCreator('sing');
+
+console.log(singAsync.INIT.type) // sing[INIT]
+
+/** somewhere else */
+store.dispatch(singAsync.INIT())
+store.dispatch(singAsync.LOADING())
+store.dispatch(singAsync.SUCCESS())
+store.dispatch(singAsync.FAILURE())
+```
+#### Customizing creators
+
 ### Creating reducers
 `WIP`
