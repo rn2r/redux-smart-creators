@@ -1,6 +1,4 @@
-import {
-  ActionWithPayload, BasicAction, BasicPayloadFunction, PayloadFunction,
-} from './common';
+import { ActionWithPayload, BasicAction, BasicPayloadFunction, PayloadFunction } from './common';
 
 /**
  * Info about action creator's type
@@ -50,4 +48,11 @@ export interface InjectPayload<ActionType extends string> {
     ActionType,
     Function
   >;
+}
+
+/**
+ * TODO make description
+ */
+export interface GetActionCreator {
+  <ActionType extends string>(actionType: ActionType): ExtendableBasicActionCreator<ActionType>;
 }
