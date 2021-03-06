@@ -13,13 +13,13 @@ export function getAsyncCreator<ActionType extends string, Steps extends string>
 
 export function getAsyncCreator<ActionType extends string, Steps extends string>(
   type: ActionType,
-  steps?: Steps[]
+  steps?: Steps[],
 ): ExtendableAsyncActionCreator<ActionType, Steps> | ExtendableAsyncActionCreator<ActionType> {
   if (steps === undefined) {
     const initialBag = getActionCreatorsBag(type, defaultAsyncSteps);
-    return withLoad(type, initialBag);
+    return withLoad(initialBag);
   }
 
   const initialBag = getActionCreatorsBag(type, steps);
-  return withLoad(type, initialBag);
+  return withLoad(initialBag);
 }

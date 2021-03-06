@@ -10,6 +10,6 @@ interface WithLoad {
 }
 
 export const withLoad: WithLoad = (basicCreator) => {
-  basicCreator.load = getPayloadInjector(basicCreator.type);
-  return basicCreator as ExtendableBasicActionCreator<typeof basicCreator.type>;
+  const load = getPayloadInjector(basicCreator.type);
+  return { ...basicCreator, load } as ExtendableBasicActionCreator<typeof basicCreator.type>;
 };

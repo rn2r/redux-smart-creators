@@ -4,6 +4,4 @@ interface Payload {
   <ActionPayload>(): BasicPayloadFunction<ActionPayload>;
 }
 
-export const payload: Payload = () => {
-  return (payload) => payload;
-};
+export const payload: Payload = () => (actionPayload) => actionPayload;

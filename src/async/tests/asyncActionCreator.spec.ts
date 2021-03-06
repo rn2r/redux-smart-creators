@@ -99,7 +99,7 @@ describe('async actionCreator with payload', () => {
     const stepsWithPayload: DefaultAsyncStep[] = ['INIT', 'LOADING'];
     const payloads = stepsWithPayload.reduce(
       (acc, step) => ({ ...acc, [step]: (payload: any) => payload }),
-      {}
+      {},
     );
 
     const asyncCreatorWithPayload = asyncCreator.load(payloads);
@@ -119,7 +119,7 @@ describe('async actionCreator with payload', () => {
     const stepsWithPayload: DefaultAsyncStep[] = ['INIT', 'LOADING'];
     const payloads = stepsWithPayload.reduce(
       (acc, step) => ({ ...acc, [step]: (payload: any) => payload }),
-      {}
+      {},
     );
 
     const asyncCreatorWithPayload = asyncCreator.load(payloads);

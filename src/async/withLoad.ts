@@ -3,12 +3,11 @@ import { ActionCreatorsBag, ExtendableAsyncActionCreator } from '../types/asyncC
 
 interface WithAsyncLoad {
   <ActionType extends string, Steps extends string>(
-    actionType: ActionType,
     basicCreator: ActionCreatorsBag<ActionType, Steps>
   ): ExtendableAsyncActionCreator<ActionType, Steps>;
 }
 
-export const withLoad: WithAsyncLoad = (actionType, actionCreatorsBag) => {
-  const load = getAsyncPayloadInjector(actionType, actionCreatorsBag);
+export const withLoad: WithAsyncLoad = (actionCreatorsBag) => {
+  const load = getAsyncPayloadInjector(actionCreatorsBag);
   return { ...actionCreatorsBag, load };
 };

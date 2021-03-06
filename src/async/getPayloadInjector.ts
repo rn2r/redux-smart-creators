@@ -7,8 +7,7 @@ import {
 } from '../types/asyncCreator';
 
 export const getAsyncPayloadInjector = <ActionType extends string, Steps extends string>(
-  type: ActionType,
-  baseCreators: ActionCreatorsBag<ActionType, Steps>
+  baseCreators: ActionCreatorsBag<ActionType, Steps>,
 ) => {
   const injectAsyncPayload: InjectAsyncPayload<ActionType, Steps> = (payloads) => {
     const stepsWithPayload = Object.keys(payloads);
@@ -16,7 +15,7 @@ export const getAsyncPayloadInjector = <ActionType extends string, Steps extends
 
     const makeCreatorWithPayload = (
       creators: ActionCreatorsBag<ActionType, Steps>,
-      step: string
+      step: string,
     ) => {
       if (!steps.includes(step)) throw new Error('Original steps should include step with payload');
       if (typeof payloads[step as keyof typeof payloads] !== 'function') {
@@ -31,7 +30,7 @@ export const getAsyncPayloadInjector = <ActionType extends string, Steps extends
 
     return stepsWithPayload.reduce(
       makeCreatorWithPayload,
-      baseCreators
+      baseCreators,
     ) as AsyncActionCreatorWithPayload<ActionType, Steps, typeof payloads>;
   };
   return injectAsyncPayload;

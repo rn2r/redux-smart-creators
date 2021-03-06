@@ -21,5 +21,4 @@ export const requireSteps: RequireSomething = (candidate) => {
   } else if (typeof candidate !== 'undefined') {
     throw new Error('You must provide list of steps or keep steps default');
   }
-  console.log(candidate);
 };

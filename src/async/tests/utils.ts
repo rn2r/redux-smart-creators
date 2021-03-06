@@ -21,23 +21,23 @@ export const wrongUsageTests: AsyncActionCreatorWrongUsageTests = <
   DefaultActionCreator extends ExtendableAsyncActionCreator<ActionType>,
   ActionCreator extends ExtendableAsyncActionCreator<ActionType, Steps>
 >(
-  getCreator: (actionType: ActionType, steps?: Steps[]) => ActionCreator | DefaultActionCreator
-): void => {
-  it('should throw an Error if called without argument', function () {
+    getCreator: (actionType: ActionType, steps?: Steps[]) => ActionCreator | DefaultActionCreator,
+  ): void => {
+  it('should throw an Error if called without argument', () => {
     expect(() => {
       // @ts-ignore
       getCreator();
     }).toThrowError();
   });
 
-  it('should throw an Error if called with empty string', function () {
+  it('should throw an Error if called with empty string', () => {
     expect(() => {
       // @ts-ignore
       getCreator('');
     }).toThrowError();
   });
 
-  it('should throw an Error if called with many spaces', function () {
+  it('should throw an Error if called with many spaces', () => {
     const actionType = ' '.repeat(Math.trunc(Math.random() * 100));
     expect(() => {
       // @ts-ignore
@@ -45,7 +45,7 @@ export const wrongUsageTests: AsyncActionCreatorWrongUsageTests = <
     }).toThrowError();
   });
 
-  it('should throw an Error if called without string', function () {
+  it('should throw an Error if called without string', () => {
     const wrongTypes = [10, false, null, {}, [], () => {}];
     wrongTypes.forEach((type) => {
       expect(() => {

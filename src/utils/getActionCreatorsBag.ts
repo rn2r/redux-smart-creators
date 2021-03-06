@@ -15,7 +15,7 @@ interface CreateAsyncActionCreator {
 
 export const getActionCreatorsBag: GetActionCreatorsBag = <T extends string, S extends string>(
   type: T,
-  steps: S[]
+  steps: S[],
 ): ActionCreatorsBag<T, S> => {
   requireActionType(type);
   requireSteps(steps);

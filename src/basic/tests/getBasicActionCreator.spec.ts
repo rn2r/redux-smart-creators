@@ -12,7 +12,6 @@ describe('getBasicActionCreator', () => {
   actionCreatorBasicTests(basicActionCreator);
 
   it("should not have a 'load' property", () => {
-    console.log(basicActionCreator);
     expect(basicActionCreator).not.toHaveProperty('load');
   });
 });
