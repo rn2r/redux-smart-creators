@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/ostashkin/redux-smart-creators/compare/v1.2.0...v1.2.1) (2021-03-06)
+
+
+### Bug Fixes
+
+* **ci:** add build stage to release workflow ([99c2bb4](https://github.com/ostashkin/redux-smart-creators/commit/99c2bb4f9739a618ef88830dd36a7db491d6bb1a))
+
 # [1.2.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.1.1...v1.2.0) (2021-03-06)
 
 
