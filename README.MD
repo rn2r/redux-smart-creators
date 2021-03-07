@@ -51,59 +51,97 @@ import { getCreator } from 'redux-smart-creators'
 #### Actions without Payload
 Use `getCreator` function with provided action type as single argument:
 ```typescript
-/** actions.ts */
 const sing = getCreator('sing');
 
-/** somewhere else */
-store.dispatch(sing())
+/** equal to:
+ * const sing = () => ({ type: 'sing' }) 
+ */
+
+store.dispatch(sing()) // dispatched {type: 'singSomething'}
 ```
 #### Actions with Payload
 After getting basic creator you can inject a payload into it using `load` method:
 ```typescript
-/** actions.ts */
 const singSomething = getCreator('singSomething').load()
 
-/** somewhere else */
-store.dispatch(sing('random song'))
+/** equal to:
+ * const singSomething = (anyPayload: any) => ({ type: 'singSomething', payload: anyPayload })
+ */
+
+store.dispatch(sing('song')) // dispatched {type: 'singSomething', payload: 'song'}
 ```
 #### Providing types and payload functions
 You can provide generic payload type for `load` method or inject your own logic for action creator
 ```typescript
-/** actions.ts */
 const rateSong = getCreator('singFavoriteSong').load<number>()
 
-const singManyTimes = getCreator('singManyTimes').load((song: string, repeats: number): string => {
-  return song.repeat(repeats)
-})
+/** equal to:
+ * const rateSong = (rating: number) => ({ type: 'rateSong', payload: rating })
+ */
 
-/** somewhere else */
+const repeatSong = (song: string, repeats: number) => song.repeat(repeats);
+const singManyTimes = getCreator('singManyTimes').load(repeatSong)
+
+/** equal to:
+ * const singManyTimes = (song: string, repeats: number) => ({ 
+ *    type: 'singManyTimes', 
+ *    payload: song.repeat(repeats) 
+ *  })
+ */
+
 store.dispatch(rateSong('10')) // Type error!
-store.dispatch(rateSong(10)) // Correct type
+store.dispatch(rateSong(10)) // dispatched {type: 'rateSong', payload: 10}
 
-store.dispatch(singManyTimes('favoriteSong', 10))
+store.dispatch(singManyTimes('la', 2)) // dispatched {type: 'singManyTimes', payload: 'lala'}
 ```
 ### Creating asynchronous actions
 ```typescript
-/** actions.ts */
 import { getAsyncCreator } from 'redux-smart-creators'
 ```
-#### Actions without Payload
+#### Asynchronous actions without Payload
 Use `getAsyncCreator` function with provided action type as single argument.
 By default, it returns an object with four **steps** (`INIT`, `LOADING`, `SUCCESS`, `FAILURE`), represented as action creators. 
 All of them will have computed action type, consisting of the type specified in the `getAsyncCreator` and the **step** name
 ```typescript
-/** actions.ts */
 const singAsync = getAsyncCreator('sing');
 
 console.log(singAsync.INIT.type) // sing[INIT]
 
-/** somewhere else */
-store.dispatch(singAsync.INIT())
-store.dispatch(singAsync.LOADING())
-store.dispatch(singAsync.SUCCESS())
-store.dispatch(singAsync.FAILURE())
+store.dispatch(singAsync.INIT()) // dispatched {type: 'sing[INIT]'}
+store.dispatch(singAsync.LOADING()) // dispatched {type: 'sing[LOADING]'}
+store.dispatch(singAsync.SUCCESS()) // dispatched {type: 'sing[SUCCESS]'}
+store.dispatch(singAsync.FAILURE()) // dispatched {type: 'sing[FAILURE]'}
 ```
-#### Customizing creators
+#### Defining own steps
+If you want to define own **steps** (instead of `INIT`, `LOADING`, `SUCCESS`, `FAILURE`)
+for asynchronous actions, provide them as array in second argument:
+```typescript
+const Async = getAsyncCreator('sing', ['start', 'finish', 'error']);
 
+console.log(singAsync.start.type) // sing[start]
+
+store.dispatch(singAsync.start()) // dispatched {type: 'sing[start]'}
+store.dispatch(singAsync.finish()) // dispatched {type: 'sing[finish]'}
+store.dispatch(singAsync.error()) // dispatched {type: 'sing[error]'}
+```
+#### Asynchronous actions creators with Payload
+For injecting a payload to asynchronous action creator use `load` method and `payload` helper function.
+You need to provide an object with steps you want to upgrade with payload.
+For upgrading use payload method:
+```typescript
+import {payload} from 'redux-smart-creators'
+
+const Async = getAsyncCreator('sing').load({
+  INIT: payload(),
+  LOADING: payload(),
+  SUCCESS: payload(),
+  FAILURE: payload()
+})
+
+store.dispatch(singAsync.INIT('anyPayload')) // dispatched {type: 'sing[INIT]'}
+store.dispatch(singAsync.LOADING(10)) // dispatched {type: 'sing[LOADING]'}
+store.dispatch(singAsync.SUCCESS(null)) // dispatched {type: 'sing[SUCCESS]'}
+store.dispatch(singAsync.FAILURE({id: 10})) // dispatched {type: 'sing[FAILURE]'}
+```
 ### Creating reducers
 `WIP`
