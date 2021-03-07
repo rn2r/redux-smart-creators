@@ -49,10 +49,3 @@ export interface InjectPayload<ActionType extends string> {
     Function
   >;
 }
-
-/**
- * TODO make description
- */
-export interface GetActionCreator {
-  <ActionType extends string>(actionType: ActionType): ExtendableBasicActionCreator<ActionType>;
-}
