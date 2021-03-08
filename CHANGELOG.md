@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.2.1...v1.3.0) (2021-03-08)
+
+
+### Bug Fixes
+
+* inferActions.ts ([25eb040](https://github.com/ostashkin/redux-smart-creators/commit/25eb04093d68918f3a598f8027a39fba6ed80570))
+
+
+### Features
+
+* getCreatorsPack ([1d458bd](https://github.com/ostashkin/redux-smart-creators/commit/1d458bd3e7cbe85503ebacfbc03a02405e4d1165))
+
 ## [1.2.1](https://github.com/ostashkin/redux-smart-creators/compare/v1.2.0...v1.2.1) (2021-03-06)
 
 
