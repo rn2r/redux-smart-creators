@@ -1,6 +1,4 @@
-import {
-  ActionWithPayload, BasicAction, BasicPayloadFunction, PayloadFunction,
-} from './common';
+import { ActionWithPayload, BasicAction, BasicPayloadFunction, PayloadFunction } from './common';
 
 /**
  * Info about action creator's type

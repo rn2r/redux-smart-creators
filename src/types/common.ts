@@ -2,6 +2,7 @@
  * Basic Action without payload
  * @example: { type: 'getAllEntries' }
  * */
+
 export interface BasicAction<T extends string> {
   type: T;
 }
