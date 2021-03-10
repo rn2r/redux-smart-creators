@@ -67,4 +67,12 @@ describe('getCreatorsPack', () => {
       expect(asyncActionCreator[step].type.includes(MOCKED_LABEL)).toBeTruthy();
     });
   });
+
+  it('should transform async action creator type if both label and new steps provided', () => {
+    const pack = getCreatorsPack(MOCKED_LABEL, ['first', 'second', 'third']);
+    const asyncActionCreator = pack.getAsyncCreator(MOCKED_TYPE, defaultAsyncSteps);
+    defaultAsyncSteps.forEach((step) => {
+      expect(asyncActionCreator[step].type.includes(MOCKED_LABEL)).toBeTruthy();
+    });
+  });
 });
