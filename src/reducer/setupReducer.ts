@@ -1,11 +1,14 @@
 import { AnyStateHandler, PayloadToStateHandler, Reducer, ReducerCreator } from '../types/reducer';
 import { UnknownAction } from '../types/common';
-import { BasicActionCreator } from '../types/creator';
+import { ActionCreatorBase, BasicActionCreator } from '../types/creator';
 
-const getCreatorsTypes = <ActionType extends string>(
-  ...creators: BasicActionCreator<ActionType>[]
+const getCreatorsTypes = <
+  ActionType extends string,
+  ActionCreator extends ActionCreatorBase<ActionType>
+>(
+  ...creators: ActionCreator[]
 ): ActionType[] => {
-  const ejectType = ({ type }: BasicActionCreator<ActionType>) => type;
+  const ejectType = ({ type }: ActionCreator) => type;
   return creators.map(ejectType);
 };
 
