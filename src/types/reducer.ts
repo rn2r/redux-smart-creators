@@ -127,7 +127,7 @@ export interface ReducerGetFromPayloadHandler<State, Action extends UnknownActio
   // Multiple Action Creators
   <
     ActionType extends Action['type'],
-    ActionCreator extends ActionCreatorWithPayload<ActionType, PayloadFunction<State>>
+    ActionCreator extends ActionCreatorWithPayload<ActionType, any>
   >(
     actionCreators: ActionCreator[],
     handler: PayloadToStateHandler<State, ReturnType<ActionCreator>['payload']>
