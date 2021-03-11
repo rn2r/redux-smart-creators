@@ -1,0 +1,1 @@
+export { setupReducer } from './setupReducer';

@@ -253,7 +253,52 @@ console.log(incrementAsync.success.type) // @@COUNTER/incrementAsync[success]
 ```
 
 ## Reducers
-`WIP`
+The library provides a powerful tool for declarative development of reducers. First, import the `setupReducer` function
+```typescript
+import { setupReducer } from "redux-smart-creators";
+```
+
+### Creating basic reducer
+To create a basic reducer, provide an initial state and call the `create` method. This reducer will always return the initial state
+```typescript
+const initialState = 0;
+const reducer = setupReducer(initialState).create()
+```
+### Reducer's action handlers
+To add some logic to the reducer, use the handlers before calling the `create `method.
+#### .On
+Executes the specified function while processing the specified action creator. 
+The function takes the current state, and the payload of the action creator's action (if the action has a payload) as arguments.
+The result of executing the function will be a new state.
+```typescript
+const initialState = 0;
+const incrementByOne = getCreator('incrementByOne');
+const incrementByValue = getCreator('incrementByValue').load()
+
+const reducer = setupReducer(initialState)
+        .on(incrementByOne, (state) => state + 1)
+        .on(incrementByValue, (state, payload) => state + payload)
+        .create()
+```
+You can provide a static value instead of a function and this value will become the new state.
+```typescript
+const initialState = 0;
+const switchToOne = getCreator('switchToOne');
+
+const reducer = setupReducer(initialState)
+        .on(switchToOne, 1)
+        .create()
+```
+To handle multiple creators that trigger the same logic, put an array with these creators as an argument.
+```typescript
+const initialState = 0;
+const increment = getCreator('increment');
+const incrementAsync = getAsyncCreator('incrementAsync');
+
+const reducer = setupReducer(initialState)
+        .on([increment, incrementAsync.SUCCESS], (state) => state + 1)
+        .create()
+```
 ## Usage with Typescript
 
 ### Typing action creators
