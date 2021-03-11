@@ -19,6 +19,15 @@
   },
   "author": "Pavel Ostashkin <ostashpav@gmail.com> (https://github.com/ostashkin)",
   "license": "MIT",
+  "keywords": [
+    "typescript",
+    "actions",
+    "smart",
+    "action-creator",
+    "redux",
+    "flux",
+    "redux-actions"
+  ],
   "devDependencies": {
     "@commitlint/cli": "^12.0.1",
     "@commitlint/config-conventional": "^12.0.1",
