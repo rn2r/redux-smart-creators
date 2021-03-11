@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.3.0...v1.4.0) (2021-03-11)
+
+
+### Features
+
+* setupReducer.ts ([371caf0](https://github.com/ostashkin/redux-smart-creators/commit/371caf0e1c221b5dc3a6c1d8cb736dc7ed9b2fbd)), closes [#10](https://github.com/ostashkin/redux-smart-creators/issues/10)
+* **reducer:** setupReducer.ts ([8862ce0](https://github.com/ostashkin/redux-smart-creators/commit/8862ce07555e9b48ee7b39281e7e4da99aebeb84)), closes [#10](https://github.com/ostashkin/redux-smart-creators/issues/10)
+
 # [1.3.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.2.1...v1.3.0) (2021-03-08)
 
 
