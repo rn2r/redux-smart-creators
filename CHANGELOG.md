@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/ostashkin/redux-smart-creators/compare/v1.5.0...v1.5.1) (2021-03-23)
+
+
+### Bug Fixes
+
+* export for types ([be2471e](https://github.com/ostashkin/redux-smart-creators/commit/be2471e97d10ba916331e4d9058edd68b1536bc4))
+
 # [1.5.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.4.1...v1.5.0) (2021-03-23)
 
 
