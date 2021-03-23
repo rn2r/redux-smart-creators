@@ -75,6 +75,7 @@ export function setupReducer<State, Action extends UnknownAction<string>>(
       registerHandler(actionCreatorOrActionCreators);
       return reducerCreator;
     },
+
     injectLogic(logicCreator) {
       return logicCreator(reducerCreator);
     },
