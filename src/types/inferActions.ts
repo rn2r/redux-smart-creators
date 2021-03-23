@@ -46,5 +46,7 @@ export type InferActionCreators<ActionCreatorHash> = Exclude<
 /**
  * Infers union of actions from a hash of action creators;
  */
-// @ts-ignore
-export type InferActions<ActionCreatorHash> = ReturnType<InferActionCreators<ActionCreatorHash>>;
+export type InferActions<
+  ActionCreatorHash,
+  InferredCreators extends InferActionCreators<ActionCreatorHash> = InferActionCreators<ActionCreatorHash>
+> = InferredCreators extends (...args: any[]) => any ? ReturnType<InferredCreators> : void;
