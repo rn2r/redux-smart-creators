@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/ostashkin/redux-smart-creators/compare/v1.4.0...v1.4.1) (2021-03-23)
+
+
+### Bug Fixes
+
+* inferActions.ts uses conditional type ([8298c88](https://github.com/ostashkin/redux-smart-creators/commit/8298c880462bd48229d76d07d41835d2dbad4b55)), closes [#12](https://github.com/ostashkin/redux-smart-creators/issues/12)
+
 # [1.4.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.3.0...v1.4.0) (2021-03-11)
 
 
