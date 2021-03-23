@@ -49,4 +49,4 @@ export type InferActionCreators<ActionCreatorHash> = Exclude<
 export type InferActions<
   ActionCreatorHash,
   InferredCreators extends InferActionCreators<ActionCreatorHash> = InferActionCreators<ActionCreatorHash>
-> = InferredCreators extends (...args: any[]) => any ? ReturnType<InferredCreators> : void;
+> = InferredCreators extends (...args: any[]) => any ? ReturnType<InferredCreators> : unknown;
