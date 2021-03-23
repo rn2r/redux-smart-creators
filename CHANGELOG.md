@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/ostashkin/redux-smart-creators/compare/v1.4.1...v1.5.0) (2021-03-23)
+
+
+### Bug Fixes
+
+* **inferActions:** change void to unknown ([6e5aff8](https://github.com/ostashkin/redux-smart-creators/commit/6e5aff88d12fc4866088581b671a4e02a3c9c1bd))
+
+
+### Features
+
+* **reducer:** injecting external logic to reducer creator ([f50acb7](https://github.com/ostashkin/redux-smart-creators/commit/f50acb7df245dbbf870ef47e6ea2e6987db255b9))
+
 ## [1.4.1](https://github.com/ostashkin/redux-smart-creators/compare/v1.4.0...v1.4.1) (2021-03-23)
 
 
