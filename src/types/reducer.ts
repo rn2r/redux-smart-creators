@@ -96,9 +96,10 @@ export interface ReducerActionHandler<State, Action extends BasicAction<string>>
  * Resets the state to its initial state
  */
 export interface ReducerResetHandler<State, Action extends UnknownAction<string>> {
-  <ActionType extends Action['type'], ActionCreator extends ActionCreatorBase<ActionType>>(
-    ...actions: ActionCreator[]
-  ): ReducerCreator<State, Action>;
+  <ActionType extends Action['type']>(...actions: ActionCreatorBase<ActionType>[]): ReducerCreator<
+    State,
+    Action
+  >;
 }
 
 /**
