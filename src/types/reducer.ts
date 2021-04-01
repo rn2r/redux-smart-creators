@@ -136,6 +136,20 @@ export interface ReducerGetFromPayloadHandler<State, Action extends UnknownActio
 }
 
 /**
+ * A function that injects additional logic into the ReducerCreator
+ */
+export interface ReducerLogicCreator<State, Action extends BasicAction<string>> {
+  (reducerCreator: ReducerCreator<State, Action>): ReducerCreator<State, Action>;
+}
+
+/**
+ * Injecting external logic into the ReducerCreator
+ */
+export interface InjectLogic<State, Action extends UnknownAction<string>> {
+  (logicCreator: ReducerLogicCreator<State, Action>): ReducerCreator<State, Action>;
+}
+
+/**
  * An object that contains tools for configuring the reducer
  */
 export interface ReducerCreator<State, Action extends BasicAction<string> = BasicAction<string>> {
@@ -144,9 +158,5 @@ export interface ReducerCreator<State, Action extends BasicAction<string> = Basi
   reset: ReducerResetHandler<State, Action>;
   switchToPayload: ReducerSwitchToPayloadHandler<State, Action>;
   getFromPayload: ReducerGetFromPayloadHandler<State, Action>;
-  // injectLogic: InjectLogic<State, Action>;
-}
-
-export interface CreateReducer {
-  <State, Action extends BasicAction<string>>(initialState: State): ReducerCreator<State, Action>;
+  injectLogic: InjectLogic<State, Action>;
 }
