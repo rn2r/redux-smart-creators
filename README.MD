@@ -10,6 +10,11 @@ redux-smart-creators
 <a href='https://coveralls.io/github/ostashkin/redux-smart-creators?branch=master'>
 <img src='https://coveralls.io/repos/github/ostashkin/redux-smart-creators/badge.svg?branch=master' alt='Coverage Status' />
 </a>
+
+<a href="https://bundlephobia.com/result?p=redux-smart-creators">
+<img alt="npm bundle size" src="https://img.shields.io/bundlephobia/minzip/redux-smart-creators.svg?color=4Fc921">
+</a>
+
 </h1>
 
 <p>Strongly typed tools for fast and declarative Redux development</p>
