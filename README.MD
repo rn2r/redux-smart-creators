@@ -20,7 +20,7 @@ redux-smart-creators
 
 **Examples**
 
-`WIP`
+`work in progress`
 
 **Getting Started**
 - [Installation](#installation)
@@ -30,6 +30,8 @@ redux-smart-creators
   - [Retrieving the action type](#retrieving-the-action-type)
   - [Creators pack](#creators-pack)
 - [Reducers](#reducers)
+  - [Creating basic reducer](#creating-basic-reducer)
+  - [Reducer's action handlers](#reducers-action-handlers)
 
 **Usage with Typescript**
 - [Typing action creators](#typing-action-creators)
@@ -174,8 +176,8 @@ import { payload } from 'redux-smart-creators'
 
 const calculateValue = (value, times) => value * times;
 const incrementManyTimesAsync = getAsyncCreator('incrementManyTimes').load({
-  INIT: payloadFunction, // You can use declared function
-  SUCCESS: payload,
+  INIT: calculateValue, // You can use declared function
+  SUCCESS: payload(),
   FAILURE: (error) => error.message, // or inline functions
 })
 
@@ -259,14 +261,17 @@ import { setupReducer } from "redux-smart-creators";
 ```
 
 ### Creating basic reducer
-To create a basic reducer, provide an initial state and call the `create` method. This reducer will always return the initial state
+To create a basic reducer, provide an initial state and call the `create` method. This reducer will always return the initial state.
 ```typescript
 const initialState = 0;
 const reducer = setupReducer(initialState).create()
 ```
 ### Reducer's action handlers
 To add some logic to the reducer, use the handlers before calling the `create `method.
-#### .On
+Each handler returns a reducer creator, so you can chain handlers.
+#### Basic usage
+For basic action's handling use the `on` method.
+
 Executes the specified function while processing the specified action creator. 
 The function takes the current state, and the payload of the action creator's action (if the action has a payload) as arguments.
 The result of executing the function will be a new state.
@@ -299,6 +304,83 @@ const reducer = setupReducer(initialState)
         .on([increment, incrementAsync.SUCCESS], (state) => state + 1)
         .create()
 ```
+#### Handling only the payload
+In some cases, you do not need the current state to compute a new one.
+If your state is determined only from the payload, use the `getFromPayload` method.
+
+Executes the specified function while processing the specified action creator.
+This method is similar to [.on](#basic-usage) method, but its handler function does not accept a state, _but only a payload_.
+This is useful when the state depends only on the payload.
+The result of executing the function will be a new state.
+
+```typescript
+const incrementWithComplexPayload = getCreator('incrementWithComplexPayload');
+// For this example, the payload would be { value: 10, incrementetBy: 'user' }
+
+const valueReducer = setupReducer(0)
+        .getFromPayload(incrementWithComplexPayload, (payload) => payload.value + 1)
+        .create()
+
+const lastIncrementorReducer = setupReducer(null)
+        .getFromPayload(incrementWithComplexPayload, (payload) => payload.user)
+        .create()
+```
+In this case you cannot provide a static value instead of a handler function.
+To handle multiple creators that trigger the same logic, put an array with these creators as an argument.
+Note, that their payload must be the same.
+```typescript
+const initialState = 0;
+const incrementWithComplexPayload = getCreator('incrementWithComplexPayload');
+const incrementWithComplexPayloadAsync = getCreator('incrementWithComplexPayloadAsync');
+
+const reducer = setupReducer(initialState)
+        .getFromPayload([incrementWithComplexPayload, incrementWithComplexPayloadAsync.SUCCESS], (payload) => payload.value + 1)
+        .create()
+```
+#### Switching to the payload
+If you do not need to process the payload, but simply want to replace the current state with it, use the `switchToPayload` method.
+
+This method only accepts the action creator.
+When a given action creator takes over, the state will be replaced by the creator's payload.
+```typescript
+const setNewValue = getCreator('setNewValue');
+
+const valueReducer = setupReducer(0)
+        .switchToPayload(setNewValue)
+        .create()
+```
+If you need to create the same logic for multiple action creators, just put these creators as arguments.
+```typescript
+const setNewValue = getCreator('setNewValue');
+const setNewValueAsync = getCreator('setNewValue');
+
+const valueReducer = setupReducer(0)
+        .switchToPayload(setNewValue, setNewValueAsync.SUCCESS)
+        .create()
+```
+#### Resetting the state
+If you need to reset the state to it's initial value, use the `reset` method.
+
+This method only accepts the action creator.
+When a given action creator takes over, the state will be switched to it's initial value.
+```typescript
+const resetValue = getCreator('resetValue');
+
+const valueReducer = setupReducer(0)
+        .reset(resetValue)
+        .create()
+```
+Put multiple creators as arguments, if you need to create the same logic for them. 
+```typescript
+const resetValue = getCreator('resetValue');
+const resetValueAsync = getCreator('resetValueAsync');
+
+const valueReducer = setupReducer(0)
+        .switchToPayload(resetValue, resetValueAsync.SUCCESS)
+        .create()
+```
+#### Injecting logic
+`work in progress`
 ## Usage with Typescript
 
 ### Typing action creators
@@ -402,4 +484,4 @@ export type RootAction = CounterActions | ServerActions
 
 ```
 ### Typing reducers
-`WIP`
+`work in progress`
